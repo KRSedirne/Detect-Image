@@ -1,9 +1,7 @@
 from flask import Flask, request, jsonify
-import subprocess
-import json
 import detect_circles
 
-# app = Flask(__name__)
+app = Flask(__name__)
 
 # @app.route('/process-image', methods=['POST'])
 # def process_image():
@@ -35,10 +33,8 @@ import detect_circles
 # if __name__ == '__main__':
 #     app.run(host='localhost', port=5001,debug=True)
 
-app = Flask(__name__)
-
 @app.route('/process-image', methods=['POST'])
-def process_image():
+def process_image(image_path):
     # imagePath parametresini JSON'dan al
     image_path = request.json.get('imagePath')
     print(image_path)

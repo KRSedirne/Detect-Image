@@ -2,17 +2,21 @@ import sys
 import cv2
 import numpy as np
 import os
+import requests
 
-def process_image(image_path):
+def process_image(image_url):
 
-    full_path = os.path.join(r"C:\Users\senaa\Downloads\krs-backend-Abdullah", image_path)
-    if not os.path.exists(full_path):
-        print(f"Dosya bulunamadı: {full_path}")
-        return
+    response = requests.get(image_url)
     
-    image = cv2.imread(full_path)
+    if response.status_code != 200:
+        print(f"Image didn't download: {image_url}")
+        sys.exit(1)
+    
+    image_array = np.frombuffer(response.content, np.uint8)
+    image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
+
     if image is None:
-        print(f"Görüntü yüklenemedi: {full_path}")
+        print("Image didn't upload.")
         sys.exit(1)
 
     # Gri tonlamalı formata dönüştür
