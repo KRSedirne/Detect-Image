@@ -4,20 +4,18 @@ import numpy as np
 import os
 import requests
 
-def process_image(image_url):
+def process_image(image_path):
 
-    response = requests.get(image_url)
+    response = requests.get(image_path)
     
     if response.status_code != 200:
-        print(f"Image didn't download: {image_url}")
-        sys.exit(1)
+        print(f"Image didn't download: {image_path}")
     
     image_array = np.frombuffer(response.content, np.uint8)
     image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
 
     if image is None:
         print("Image didn't upload.")
-        sys.exit(1)
 
     # Gri tonlamalı formata dönüştür
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

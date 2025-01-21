@@ -34,7 +34,7 @@ app = Flask(__name__)
 #     app.run(host='localhost', port=5001,debug=True)
 
 @app.route('/process-image', methods=['POST'])
-def process_image(image_path):
+def process_image():
     # imagePath parametresini JSON'dan al
     image_path = request.json.get('imagePath')
     print(image_path)
